@@ -6,7 +6,7 @@ from ex import MOD_NAME
 
 
 @sims4.commands.Command(MOD_NAME + '.debug', command_type=sims4.commands.CommandType.Live)
-def hello(_connection=None):
+def debug(_connection=None):
     output = sims4.commands.CheatOutput(_connection)
     output("Connecting to Debugger")
     print("Connecting to Debugger")
@@ -35,7 +35,7 @@ def hello(_connection=None):
             #   and .egg renamed to .zip for this to work.
             #  Startup the Python Remote Debug Configuration before running this command.
             import pydevd
-            pydevd.settrace('localhost', port=54321, stdoutToServer=True, stderrToServer=True)
+            pydevd.settrace('localhost', port=5678, stdoutToServer=True, stderrToServer=True)
             failed = False
         except Exception as e:
             import sys, traceback
