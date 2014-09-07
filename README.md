@@ -99,7 +99,7 @@ The purpose of this example to to show some basic but useful techniques for modd
       
       To get this to work copy the pycharm-debug-py3k.egg from PyCharm
       Professional install to the Mods folder and rename .egg to .zip.  Then
-      start up a Remote Debugger configuration with 54321 as the port.
+      start up a Remote Debugger configuration with 5678 as the port.
       
       Other IDE's namely Eclipse has similar mechanisms but will leave that as 
       an exercise for reader.  Visual Studio 2013 with Python Tools should work 
