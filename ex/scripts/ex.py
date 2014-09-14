@@ -50,13 +50,10 @@ def initialize():
     global MOD_PATH, SOURCE_PATH, MOD_NAME
     try:
         idx = 0
-        for idx, fullpath in enumerate(sys.path):
-            (filepath, filename) = os.path.split(fullpath)
-            if filename == MOD_NAME + '.zip':  # search for self to find the Mod folder
-                MOD_PATH = filepath
-                SOURCE_PATH = os.path.join(filepath, 'Source')
-                break
-        if SOURCE_PATH:
+        (filepath, filename) = os.path.split(__file__)
+        MOD_PATH = filepath
+        SOURCE_PATH = os.path.join(filepath, 'Source')
+        if os.path.exists(SOURCE_PATH):
             sys.path.insert(idx, SOURCE_PATH)
             load_files(SOURCE_PATH, callback=print)
 
