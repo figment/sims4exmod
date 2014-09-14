@@ -19,7 +19,7 @@ The purpose of this example to to show some basic but useful techniques for modd
   
 ## Included
   README.txt - This file
-  ex - Example Mod Folder (this goes in )
+  ex - Example Mod Folder
   winmm.dll - Special helper file to work around scripts not loading
   scripts.ini - Config file for the winmm.dll hack
 
@@ -37,7 +37,8 @@ The purpose of this example to to show some basic but useful techniques for modd
 	Source code will not be provided for this because its a hack.
     
   * Next, copy scripts.ini to 'Documents\Electronic Arts\The Sims 4\Mods' 
-    This is a helper file for winmm.dll holding information required to 
+    This is a helper file for winmm.dll holding information required to patch the game to 
+    actually load the python files. 
     
   * This file does some code modification to load any scripts in the mods folder.  
     Basically it searches for the pattern "ex\ex.zip" and calls 'import ex'
