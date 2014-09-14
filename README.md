@@ -20,8 +20,8 @@ The purpose of this example to to show some basic but useful techniques for modd
 ## Included
   README.txt - This file
   ex - Example Mod Folder
-  winmm.dll - Special helper file to work around scripts not loading
-  scripts.ini - Config file for the winmm.dll hack
+  winmm.dll - Special helper file to work around scripts not loading (removed)
+  scripts.ini - Config file for the winmm.dll hack (removed)
 
   
 ## Walkthrough
@@ -51,16 +51,19 @@ The purpose of this example to to show some basic but useful techniques for modd
         + The Sims 4
           + Mods
             + ex
-              - ex.zip
-              + source
-                - \_\_init\_\_.py
-                - debug.py
-                - hooks.py
-                + subfolder
+			  + scripts
+                - ex.py
+                - reloader.py
+                - monitor.py
+                + source
                   - \_\_init\_\_.py
-                  - commands.py
+                  - debug.py
+                  - hooks.py
+                  + subfolder
+                    - \_\_init\_\_.py
+                    - commands.py
                 
-    ### ex.zip
+    ### ex.zip (removed)
 	  This has 3 files, ex.py, reloader.py, monitor.py.
 	
 	  The majority of the ex file is the code to load and reload the contents
@@ -68,9 +71,18 @@ The purpose of this example to to show some basic but useful techniques for modd
 	  and loads it.
 	  
 	  ex has has one command added which is the reload command.
+      
+      The file was removed since you can use the scripts folder when structured
+      as above.
 	  	  
 	  
-	### ex/source/\_\_init\_\_.py
+	### ex/scripts/ex.py
+	  The top level example py file.  This is the entry point invoked by 
+      the game.  Currently this code tries to set up a code reload command.
+      (The command may or may not actually work I've had issues with it working)
+	  
+	  
+	### ex/scripts/source/\_\_init\_\_.py
 	  This is the package loader file.  It bootstraps the process and 
 	  imports the hooks and subfolder packages.  If you dont do this then 
 	  nothing will happen since the code is unreferenced.
@@ -81,7 +93,7 @@ The purpose of this example to to show some basic but useful techniques for modd
 	  everything else prefixed with ex will searched for in the ex.zip file.
 	  
 	  
-	### ex/source/hooks.py
+	### ex/scripts/source/hooks.py
 	  This file has some monkey patching examples.  Monkey patching is a basic
 	  techinique for extending the current environment dynamically and replacing
 	  existing functions with altered versions which do something interesting.
@@ -94,7 +106,7 @@ The purpose of this example to to show some basic but useful techniques for modd
 	  see the logs. At the moment we have no other way of seeing logs.
 
 
-    ### ex/source/debug.py
+    ### ex/scripts/source/debug.py
       This shows how to connect a debugger.  In this case, I'm connecting to
       PyCharm Professional / IntelliJ IDEA Professional on my machine. 
       
@@ -107,12 +119,12 @@ The purpose of this example to to show some basic but useful techniques for modd
       but does not for me (I was able to get it loading with some effort but 
       I get an error about the version not being supported.)
 	  
-	### ex/source/subfolder/\_\_init\_\_.py
+	### ex/scripts/source/subfolder/\_\_init\_\_.py
 	  The reason for subfolder is just to show how to create subfolders in python.
 	  If you want to reference other files like "commands" you have to have
 	  and \_\_init\_\_.py file (and it can have just pass) as the contents.
 	  
-	### ex/source/subfolder/commands.py
+	### ex/scripts/source/subfolder/commands.py
 	  Commands has a "hello" function.  This is show how to add a command
 	  which prints out "world" to the cheat console when ex.hello is typed
 	  
