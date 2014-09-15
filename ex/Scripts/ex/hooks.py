@@ -8,13 +8,13 @@ import sims4
 import sims4.log
 from sims4.console_colors import ConsoleColor
 import sims4.console_colors
-from ex import MOD_PATH
+from ex import LOGPATH
 
 # first override the stdout and stderr log files
 #  this is global so only do this for debugging
 
-stderr_log = os.path.join(MOD_PATH, 'stderr.log')
-stdout_log = os.path.join(MOD_PATH, 'stdout.log')
+stderr_log = os.path.join(LOGPATH, 'stderr.log')
+stdout_log = os.path.join(LOGPATH, 'stdout.log')
 
 class FileLogHandler:
     def __init__(self, name, flags="wt", *args, **kwargs):

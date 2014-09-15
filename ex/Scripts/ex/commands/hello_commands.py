@@ -3,6 +3,7 @@ import sims4.commands
 import sims4.log
 
 from ex import MOD_NAME
+from ex.utils import *
 
 
 @sims4.commands.Command(MOD_NAME + '.hello', command_type=sims4.commands.CommandType.Live)

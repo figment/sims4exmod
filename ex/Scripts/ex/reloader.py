@@ -97,7 +97,7 @@ def _reload(m, visited):
     name = m.__name__
 
     if _allow_reload and not _allow_reload(name, m):
-        return
+        return visited
 
     # Start by adding this module to our set of visited modules.  We use this
     # set to avoid running into infinite recursion while walking the module
@@ -135,10 +135,12 @@ def _reload(m, visited):
         imp.reload(m)
         callback(d)
     else:
+        print(m.__name__)
         imp.reload(m)
 
     # Reset our parent pointer now that the reloading operation is complete.
     _parent = None
+    return visited
 
 def reload(m):
     """Reload an existing module.
@@ -148,6 +150,20 @@ def reload(m):
     If a module has a __reload__(d) function, it will be called with a copy of
     the original module's dictionary after the module is reloaded."""
     _reload(m, set())
+
+
+def reloadlist(modules):
+    """Reload an existing module.
+
+    Any known dependencies of the module will also be reloaded.
+
+    If a module has a __reload__(d) function, it will be called with a copy of
+    the original module's dictionary after the module is reloaded."""
+    visited = set()
+    for m in modules:
+        visited = _reload(m, visited)
+    return visited
+
 
 def load(name, fromlist=None, importer=None):
     # Track our current parent module.  This is used to find our current place
@@ -175,7 +191,7 @@ def load(name, fromlist=None, importer=None):
                 except AttributeError:
                     m = sys.modules[m.__name__ + '.' + component]
 
-        # If this is a nested import for a reloadable (source-based) module,
+        # If this is a nested import for a reloadable (tz.source-based) module,
         # we append ourself to our parent's dependency list.
         if hasattr(m, '__file__'):
             l = _dependencies.setdefault(parent, [])

@@ -52,48 +52,33 @@ The purpose of this example to to show some basic but useful techniques for modd
           + Mods
             + ex
 			  + scripts
-                - ex.py
-                - reloader.py
-                - monitor.py
-                + source
+                + ex
                   - \_\_init\_\_.py
                   - debug.py
                   - hooks.py
-                  + subfolder
+                  - reloader.py
+				  - utils.py
+                  + commands
                     - \_\_init\_\_.py
-                    - commands.py
-                
-    ### ex.zip (removed)
-	  This has 3 files, ex.py, reloader.py, monitor.py.
-	
-	  The majority of the ex file is the code to load and reload the contents
-	  of the source directory.  It effectively locates ex/source/__init__.py
-	  and loads it.
+                    - hello_commands.py
+                  	  
 	  
-	  ex has has one command added which is the reload command.
-      
-      The file was removed since you can use the scripts folder when structured
-      as above.
-	  	  
-	  
-	### ex/scripts/ex.py
+	### ex/scripts/ex/\_\_init\_\_.py
 	  The top level example py file.  This is the entry point invoked by 
       the game.  Currently this code tries to set up a code reload command.
       (The command may or may not actually work I've had issues with it working)
 	  
+	  The reason for the duplicate ex folder and \_\_init\_\_.py is so 
+	  that we use the other files in the same scope without polluting the global
+	  namespace.  (If you put stuff in the scripts directory directly it may 
+	  conflict with other mods so we use the 'ex' folder to isolate it)
 	  
-	### ex/scripts/source/\_\_init\_\_.py
-	  This is the package loader file.  It bootstraps the process and 
-	  imports the hooks and subfolder packages.  If you dont do this then 
+	  In general \_\_init\_\_.py are the package loader files.  It is sort of
+	  the main file for any files in the same folder. If you dont do this then 
 	  nothing will happen since the code is unreferenced.
+
 	  
-	  Note that I use 'ex.source' as the root of the ex/source folder.  This is 
-	  because 'ex' is reserved for the ex.zip file and its contents.  Anything
-	  that is prefixed with ex.source will be searched for in the source folder
-	  everything else prefixed with ex will searched for in the ex.zip file.
-	  
-	  
-	### ex/scripts/source/hooks.py
+	### ex/scripts/ex/hooks.py
 	  This file has some monkey patching examples.  Monkey patching is a basic
 	  techinique for extending the current environment dynamically and replacing
 	  existing functions with altered versions which do something interesting.
@@ -105,8 +90,7 @@ The purpose of this example to to show some basic but useful techniques for modd
 	  It also overrides some log functions in the sims4 library so that we can
 	  see the logs. At the moment we have no other way of seeing logs.
 
-
-    ### ex/scripts/source/debug.py
+    ### ex/scripts/ex/debug.py
       This shows how to connect a debugger.  In this case, I'm connecting to
       PyCharm Professional / IntelliJ IDEA Professional on my machine. 
       
@@ -119,12 +103,12 @@ The purpose of this example to to show some basic but useful techniques for modd
       but does not for me (I was able to get it loading with some effort but 
       I get an error about the version not being supported.)
 	  
-	### ex/scripts/source/subfolder/\_\_init\_\_.py
+	### ex/scripts/ex/commands/\_\_init\_\_.py
 	  The reason for subfolder is just to show how to create subfolders in python.
 	  If you want to reference other files like "commands" you have to have
 	  and \_\_init\_\_.py file (and it can have just pass) as the contents.
 	  
-	### ex/scripts/source/subfolder/commands.py
+	### ex/scripts/ex/hello_commands.py
 	  Commands has a "hello" function.  This is show how to add a command
 	  which prints out "world" to the cheat console when ex.hello is typed
 	  
@@ -135,6 +119,17 @@ The purpose of this example to to show some basic but useful techniques for modd
 	  There are better ways of doing logging that do not interfere with others
 	  but this is a quick and dirty example.
 	  
+	### ex/scripts/ex/reloader.py
+      This module tries to manage the reloading of source code and tracks
+	  all imports and exports.
+	  
+	### ex/scripts/ex/utils.py
+	  If you use "from ex.utils import *" then it will replace the print function
+	  with one that will output to the ex/logs/ex.log file.
+	  
+	  This allows some local logging for this mod until there is a better
+	  set of hooks for logging consistently in the game.	  
+
 
 	### Notes
   	  When you type ex.reload in the cheat console (CTRL+SHIFT+C) when in game,
